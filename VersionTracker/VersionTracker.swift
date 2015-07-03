@@ -15,10 +15,10 @@ private let BuildsKey = "VersionTracker.BuildsKey"
 public struct VersionTracker {
 	typealias VersionTrailDictionary = [String: [String]]
 	
-	private static var versionTrail: VersionTrailDictionary	= [:]
-	public private(set) static var isFirstLaunchEver		= false
-	public private(set) static var isFirstLaunchForVersion	= false
-	public private(set) static var isFirstLaunchForBuild	= false
+	private static var versionTrail: VersionTrailDictionary = [:]
+	public private(set) static var isFirstLaunchEver = false
+	public private(set) static var isFirstLaunchForVersion = false
+	public private(set) static var isFirstLaunchForBuild = false
 	
 	public static var currentVersion: String {
 		return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
@@ -32,15 +32,9 @@ public struct VersionTracker {
 		let standardUserDefaults = NSUserDefaults.standardUserDefaults()
 		
 		let oldVersionTrail = standardUserDefaults.objectForKey(VersionTrailKey) as? VersionTrailDictionary
-		
-		if let oldVersionTrail = oldVersionTrail {
-			isFirstLaunchEver = false
-			versionTrail = oldVersionTrail
-		} else {
-			isFirstLaunchEver = true
-			versionTrail[VersionsKey] = []
-			versionTrail[BuildsKey] = []
-		}
+	
+		versionTrail = oldVersionTrail ?? [:]
+		isFirstLaunchEver = oldVersionTrail == nil
 		
 		if let versions = versionTrail[VersionsKey] where contains(versions, currentVersion) {
 			isFirstLaunchForVersion = false
