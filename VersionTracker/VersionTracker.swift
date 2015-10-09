@@ -36,7 +36,7 @@ public struct VersionTracker {
 		versionTrail = oldVersionTrail ?? [:]
 		isFirstLaunchEver = oldVersionTrail == nil
 		
-		if let versions = versionTrail[VersionsKey] where contains(versions, currentVersion) {
+		if let versions = versionTrail[VersionsKey] where versions.contains(currentVersion) {
 			isFirstLaunchForVersion = false
 		} else {
 			isFirstLaunchForVersion = true
@@ -45,7 +45,7 @@ public struct VersionTracker {
 			versionTrail[VersionsKey] = versions
 		}
 		
-		if let builds = versionTrail[BuildsKey] where contains(builds, currentBuild) {
+		if let builds = versionTrail[BuildsKey] where builds.contains(currentBuild) {
 			isFirstLaunchForBuild = false
 		} else {
 			isFirstLaunchForBuild = true

@@ -19,15 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		VersionTracker.track()
 		
 		if VersionTracker.isFirstLaunchEver {
-			println("isFirstLaunchEver")
+			print("isFirstLaunchEver")
 		}
 		
 		if VersionTracker.isFirstLaunchForVersion {
-			println("isFirstLaunchForVersion")
+			print("isFirstLaunchForVersion")
 		}
 		
 		if VersionTracker.isFirstLaunchForBuild {
-			println("isFirstLaunchForBuild")
+			print("isFirstLaunchForBuild")
 		}
 		
 		return true
