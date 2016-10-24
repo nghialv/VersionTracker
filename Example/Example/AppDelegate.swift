@@ -11,27 +11,23 @@ import VersionTracker
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
 	var window: UIWindow?
 
-
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		VersionTracker.track()
 		
 		if VersionTracker.isFirstLaunchEver {
-			println("isFirstLaunchEver")
+			print("isFirstLaunchEver")
 		}
 		
 		if VersionTracker.isFirstLaunchForVersion {
-			println("isFirstLaunchForVersion")
+			print("isFirstLaunchForVersion")
 		}
 		
 		if VersionTracker.isFirstLaunchForBuild {
-			println("isFirstLaunchForBuild")
+			print("isFirstLaunchForBuild")
 		}
 		
 		return true
 	}
-
 }
-
