@@ -21,22 +21,22 @@ public struct VersionTracker {
 	public private(set) static var isFirstLaunchForBuild = false
 	
 	public static var currentVersion: String {
-		return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+		return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
 	}
 	
 	public static var currentBuild: String {
-		return NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+		return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
 	}
 	
 	public static func track() {
-		let standardUserDefaults = NSUserDefaults.standardUserDefaults()
+		let standardUserDefaults = UserDefaults.standard
 		
-		let oldVersionTrail = standardUserDefaults.objectForKey(VersionTrailKey) as? VersionTrailDictionary
+		let oldVersionTrail = standardUserDefaults.object(forKey: VersionTrailKey) as? VersionTrailDictionary
 	
 		versionTrail = oldVersionTrail ?? [:]
 		isFirstLaunchEver = oldVersionTrail == nil
-		
-		if let versions = versionTrail[VersionsKey] where contains(versions, currentVersion) {
+        
+        if let versions = versionTrail[VersionsKey], versions.contains(currentVersion) {
 			isFirstLaunchForVersion = false
 		} else {
 			isFirstLaunchForVersion = true
@@ -45,7 +45,7 @@ public struct VersionTracker {
 			versionTrail[VersionsKey] = versions
 		}
 		
-		if let builds = versionTrail[BuildsKey] where contains(builds, currentBuild) {
+		if let builds = versionTrail[BuildsKey], builds.contains(currentBuild) {
 			isFirstLaunchForBuild = false
 		} else {
 			isFirstLaunchForBuild = true
@@ -55,7 +55,7 @@ public struct VersionTracker {
 		}
 		
 		// Store version trail
-		standardUserDefaults.setObject(versionTrail, forKey: VersionTrailKey)
+		standardUserDefaults.set(versionTrail, forKey: VersionTrailKey)
 		standardUserDefaults.synchronize()
 	}
 }
